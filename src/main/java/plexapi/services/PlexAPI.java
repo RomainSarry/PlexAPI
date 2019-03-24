@@ -114,10 +114,10 @@ public class PlexAPI {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-            ArrayNode showsNode = (ArrayNode) mapper.readTree(getRequest(urlString + season.getKey())).get("MediaContainer").get("Metadata");
-            for (JsonNode seasonNode : showsNode) {
-                PlexEpisode episode = mapper.readValue(seasonNode.toString(), PlexEpisode.class);
-                episodes.put(seasonNode.get("index").asInt(), episode);
+            ArrayNode episodesNode = (ArrayNode) mapper.readTree(getRequest(urlString + season.getKey())).get("MediaContainer").get("Metadata");
+            for (JsonNode episodeNode : episodesNode) {
+                PlexEpisode episode = mapper.readValue(episodeNode.toString(), PlexEpisode.class);
+                episodes.put(episodeNode.get("index").asInt(), episode);
             }
 
             return episodes;

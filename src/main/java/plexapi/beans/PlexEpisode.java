@@ -1,42 +1,14 @@
 package plexapi.beans;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 /**
  * Created by Romain on 10/11/2018.
  */
 public class PlexEpisode {
-    private String id;
-
-    private Integer number;
-
-    private String idFile;
-
     private String title;
 
-    private Boolean watched;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public String getIdFile() {
-        return idFile;
-    }
-
-    public void setIdFile(String idFile) {
-        this.idFile = idFile;
-    }
+    private Boolean watched = false;
 
     public String getTitle() {
         return title;
@@ -52,5 +24,14 @@ public class PlexEpisode {
 
     public void setWatched(Boolean watched) {
         this.watched = watched;
+    }
+
+    @JsonSetter("viewCount")
+    public void setWatchedFromViewCount(Integer viewCount) {
+        if (viewCount != null && viewCount > 0) {
+            this.watched = true;
+        } else {
+            this.watched = false;
+        }
     }
 }
